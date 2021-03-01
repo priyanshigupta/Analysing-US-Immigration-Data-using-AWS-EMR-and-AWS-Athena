@@ -48,7 +48,7 @@ This choice med it easy for my to analyse and gather more information pertaining
 
 Fact Table:
 
-i94_Fact -Contains fact about immigration in US
+- I94_Fact -Contains fact about immigration in US
   `cicid`, `statusid`, `arrival_portid`, `fltid`, `arrdate`, `depdate`, `i94mode`, `i94visa` , `visatype` 
   
 Dimension Tables:
@@ -71,6 +71,70 @@ Dimension Tables:
 I will be using AWS services to build an ETL pipeline to_build a data lake hosted on S3 location "s3a://capstone-data-lake/"
 
 ## Mapping Out Data Pipelines
+
+Following are the steps included in the pipeline:
+
+1) Load the data in S3 Bucket to integrate all the sources.
+2) Use AWS EMR with configured Hadoop and Spark to build the dimenstional model.
+3) Dump the dimensional model as partitioned parquet files in a Data Lake for effecient storage.
+4) Use AWS Glue to create a crawler to infer schema and get data to make it available for us to query.
+5) Use AWS Athena to analyse the data by quering from the cube.
+
+
+## Process to Execute 
+
+### 1.Create IAM Role on AWS
+
+By accessing AWS Identity and Access Management (IAM) console, create a user with additional policies of AmazonS3FullAccess, AmazonEC2FullAccess and AdministratorAccess.Save the key and secret id.
+
+### 2.Add the credentials to the Config file
+
+Add the secret key and id into the config file "dl.cfg".
+
+### 3.Create Key pair on EC2 machine.
+
+I needed to create one SSH key pair to securely connect to the EMR cluster that I create.
+
+### 4.Create EMR Cluster
+
+Created an EMR cluster by using Infrasture as code methodology "InfraCode.py".
+We can also craete it by access the AWS EMR console. 
+Note: I created a cluster with 1 master node and 6 core, while creating the cluster I made sure to add spark application.
+
+You can also login into AWS EMR console and verify the cluster is in the RUNNING or WAITING mode:
+<img src="Images/emr_cluster.png" alt="drawing" width="800" height="300"/>
+
+### 5.Import the executable files to HDFS
+
+Connect to the EMR cluster with SSH and import the files to be executed on HDFS.
+
+Below is the screen shot for your reference:
+<img src="Images/EMR-shell.png" alt="drawing" width="800" height="300"/>
+
+You can also check the HDFS browser by accessing the HDFS Namenode url.
+Below is the screen shot for your reference:
+<img src="Images/HDFS Console.png" alt="drawing" width="800" height="300"/>
+
+Further you can submit the spark script in YARN mode by command:
+
+/user/bin/spark-submit --master yarn ./etl.py
+
+<img src="Images/spark-submit.png" alt="drawing" width="800" height="300"/>
+
+### 6.Monitor job
+
+The job and stages will appear in the Spark History Server UI.
+We can also monitor the Spark executors.
+
+
+### Output
+
+Each of the tables were written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. 
+
+<img src="Images/CAPTURE.png" alt="drawing" width="800" height="300"/>
+
+
+
 
 
 
