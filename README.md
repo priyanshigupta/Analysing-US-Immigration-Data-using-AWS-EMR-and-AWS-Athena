@@ -127,14 +127,110 @@ The job and stages will appear in the Spark History Server UI.
 We can also monitor the Spark executors.
 
 
-### Output
+### Data Lake
 
 Each of the tables were written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. 
 
 <img src="Images/Capture.PNG" alt="drawing" width="800" height="300"/>
 
+## Analysis with Amazon Athena
+
+After running the pipeline, we can do some analysis by ingesting the S3 data using Amazon Athena
+
+First, setup a Glue crawler that points to the bucket folder where the generated tables files are stored. The crawler will automatically extract the tables from the parquet files.
+
+After a few minutes, tables will show up in the Athena console under Query Editor:
+
+<img src="Images/table_view.PNG" alt="drawing" width="800" height="300"/>
+
+- Following is the cube query we can use for the data analysis:
+
+~~~sql
+SELECT *,e.date as arrival_date, f.date as departure_date 
+FROM "us_i94"."i94_data" a
+LEFT JOIN
+"us_i94"."flight" b
+ON a.fltid=b.fltid
+LEFT JOIN
+"us_i94"."arrival_port" c
+ON a.arrival_portid=c.arrival_portid
+LEFT JOIN
+"us_i94"."status" d
+ON a.statusid=d.statusid
+LEFT JOIN
+"us_i94"."time" e
+ON e.dateid=a.arrdate
+LEFT JOIN
+"us_i94"."time" f
+ON f.dateid=a.depdate
+LEFT JOIN
+(select state_code,avg(median_age) as avg_median_age, avg(male_population) as avg_male_population,
+ avg(female_population) as avg_female_population,avg(total_population) as avg_total_population,
+ avg(number_of_veterans) as avg_number_of_veterans, avg(foreign_born) as average_foreign_born,
+ avg(average_household_size) as average_household_size from
+ "us_i94"."us_demographic" group by state_code) g
+ON g.state_code=a.state_code
+~~~
+
+<img src="Images/cube_query.PNG" alt="drawing" width="800" height="300"/>
 
 
+- Following is the query to analyse the number of immigrants arriving at each port and visatype for year 2016.
 
+~~~sql
+SELECT I94port,visatype,count(distinct cicid) as count_of_arrivals
+FROM "us_i94"."i94_data" a
+LEFT JOIN
+"us_i94"."arrival_port" c
+ON a.arrival_portid=c.arrival_portid
+LEFT JOIN
+(select * from "us_i94"."time"  where year='2016') e
+ON e.dateid=a.arrdate
+LEFT JOIN
+"us_i94"."time" f
+ON f.dateid=a.depdate
+group by 1,2
+ORDER BY count(distinct cicid) DESC
+~~~~
+
+<img src="Images/arrivals_in_2016.PNG" alt="drawing" width="800" height="300"/>
+
+
+- Following is the query to analyse the number of immigrants arriving via each airline for year 2016.
+
+~~~sql
+SELECT airline,count(distinct cicid) as count_of_arrivals
+FROM "us_i94"."i94_data" a
+LEFT JOIN
+"us_i94"."flight" c
+ON a.fltid=c.fltid
+LEFT JOIN
+(select * from "us_i94"."time"  where year='2016') e
+ON e.dateid=a.arrdate
+LEFT JOIN
+"us_i94"."time" f
+ON f.dateid=a.depdate
+group by 1
+ORDER BY count(distinct cicid) DESC
+~~~~
+
+<img src="Images/airline_2016.PNG" alt="drawing" width="800" height="300"/>
+
+- Following is the query to analyse the number of immigrants arriving for each airport for year 2016.
+
+~~~sql
+SELECT d.name as airport_name,count(distinct cicid) as cnt FROM "us_i94"."i94_data" a
+LEFT JOIN
+"us_i94"."arrival_port" c
+ON a.arrival_portid=c.arrival_portid
+LEFT JOIN
+"us_i94"."airport" d
+ON c.i94port = d.iata_code
+where iata_code is not NULL
+group by 1
+order by cnt desc
+~~~~
+
+<img src="Images/airport_cnt.PNG" alt="drawing" width="800" height="300"/>
 
 
