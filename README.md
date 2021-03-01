@@ -247,7 +247,15 @@ order by cnt desc
 
 <img src="Images/airport_cnt.PNG" alt="drawing" width="1000" height="600"/>
 
-## Complete Project 
+## Conclusion Writeup
+
+Why this ETL pipeline:
+
+This pipeline makes sure that we are able to use both staructured and unstructured data by making use of a Data Lake.
+Data lake ensures that we save our data in compressed format by storing the data in partitioned parquet format which makes reading data even faster.
+Once stored in Data Lake this data can be access for analysis by AWS Athena which makes use of AWS Glue crawler to make use of ready to read schema which makes analysis easier.
+This project is also exanpandible my making use of Airflow to create production level pipeline o connect to Redshift clusters in future.
+
 Description
 of how to approach the problem differently under the following scenarios:
 The data was increased by 100x.
