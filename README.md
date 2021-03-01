@@ -172,7 +172,7 @@ LEFT JOIN
 ON g.state_code=a.state_code
 ~~~
 
-<img src="Images/cube_query.PNG" alt="drawing" width="900" height="800"/>
+<img src="Images/cube_query.PNG" alt="drawing" width="1000" height="600"/>
 
 
 - Following is the query to analyse the number of immigrants arriving at each port and visatype for year 2016.
