@@ -102,24 +102,24 @@ We can also craete it by access the AWS EMR console.
 Note: I created a cluster with 1 master node and 6 core, while creating the cluster I made sure to add spark application.
 
 You can also login into AWS EMR console and verify the cluster is in the RUNNING or WAITING mode:
-<img src="Images/emr_cluster.png" alt="drawing" width="800" height="300"/>
+<img src="Images/emr_cluster.PNG" alt="drawing" width="800" height="300"/>
 
 ### 5.Import the executable files to HDFS
 
 Connect to the EMR cluster with SSH and import the files to be executed on HDFS.
 
 Below is the screen shot for your reference:
-<img src="Images/EMR-shell.png" alt="drawing" width="800" height="300"/>
+<img src="Images/EMR-shell.PNG" alt="drawing" width="800" height="300"/>
 
 You can also check the HDFS browser by accessing the HDFS Namenode url.
 Below is the screen shot for your reference:
-<img src="Images/HDFS Console.png" alt="drawing" width="800" height="300"/>
+<img src="Images/HDFS Console.PNG" alt="drawing" width="800" height="300"/>
 
 Further you can submit the spark script in YARN mode by command:
 
 /user/bin/spark-submit --master yarn ./etl.py
 
-<img src="Images/spark-submit.png" alt="drawing" width="800" height="300"/>
+<img src="Images/spark-submit.PNG" alt="drawing" width="800" height="300"/>
 
 ### 6.Monitor job
 
@@ -131,7 +131,7 @@ We can also monitor the Spark executors.
 
 Each of the tables were written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. 
 
-<img src="Images/CAPTURE.png" alt="drawing" width="800" height="300"/>
+<img src="Images/CAPTURE.PNG" alt="drawing" width="800" height="300"/>
 
 
 
