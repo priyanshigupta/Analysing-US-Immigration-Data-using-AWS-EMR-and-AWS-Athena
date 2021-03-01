@@ -20,6 +20,7 @@ os.environ['AWS_ACCESS_KEY_ID']=config.get('AWS','AWS_ACCESS_KEY_ID')
 os.environ['AWS_SECRET_ACCESS_KEY']=config.get('AWS','AWS_SECRET_ACCESS_KEY')
 
 def create_spark_session():
+    """ Defining the spark session"""
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -29,6 +30,9 @@ def create_spark_session():
 
 
 def process_airport_data(spark, input_data, output_data):
+    """ Processing airport data to create its 
+    corresponding dimension to create table and
+    write it back to S3 in form of partitioned parquet files""" 
     
     #Read data from source 
     df=spark.read.format('csv').options(header='true').load(input_data)
@@ -53,6 +57,10 @@ def process_airport_data(spark, input_data, output_data):
     
 def process_us_demographic_data(spark, input_data, output_data):
     
+      """ Processing US Demographic data to create its 
+    corresponding dimension to create table and
+    write it back to S3 in form of partitioned parquet files""" 
+        
     #Read data from source 
     df=spark.read.format('csv').options(inferSchema="true",delimiter=";",header="true").load(input_data)
     
@@ -83,6 +91,10 @@ def process_us_demographic_data(spark, input_data, output_data):
     
     
 def  process_i94_data(spark, input_data, output_data):
+    
+      """ Processing Immigration data to create its 
+    corresponding dimension to create table and
+    write it back to S3 in form of partitioned parquet files""" 
     
     #load data from source
     df=spark.read.parquet(input_data)
