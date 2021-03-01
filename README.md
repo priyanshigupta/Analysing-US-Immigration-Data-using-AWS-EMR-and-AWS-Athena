@@ -141,7 +141,7 @@ First, setup a Glue crawler that points to the bucket folder where the generated
 
 After a few minutes, tables will show up in the Athena console under Query Editor:
 
-<img src="Images/table_view.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/table_view.PNG" alt="drawing" width="500" height="800"/>
 
 - Following is the cube query we can use for the data analysis:
 
@@ -172,7 +172,7 @@ LEFT JOIN
 ON g.state_code=a.state_code
 ~~~
 
-<img src="Images/cube_query.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/cube_query.PNG" alt="drawing" width="600" height="1000"/>
 
 
 - Following is the query to analyse the number of immigrants arriving at each port and visatype for year 2016.
