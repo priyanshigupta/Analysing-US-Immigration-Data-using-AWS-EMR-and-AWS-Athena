@@ -131,7 +131,7 @@ We can also monitor the Spark executors.
 
 Each of the tables were written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. 
 
-<img src="Images/CAPTURE.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/Capture.PNG" alt="drawing" width="800" height="300"/>
 
 
 
