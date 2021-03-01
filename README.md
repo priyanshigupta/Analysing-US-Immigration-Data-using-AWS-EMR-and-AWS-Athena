@@ -53,19 +53,19 @@ i94_Fact -Contains fact about immigration in US
   
 Dimension Tables:
 
-Flight - Flight information 
+- Flight - Flight information 
   `airline` ,`fltno` ,`fltid` 
-Status - Information about  Arrival Flag  ,  Update Flag , Match flag
+- Status - Information about  Arrival Flag  ,  Update Flag , Match flag
   `entdepa` ,`entdepd`,`entdepu`,`matflag` ,`statusid` 
-Time - Details about specific date
+- Time - Details about specific date
   `dateid` ,`date`,`month` ,`day` ,`weekday` ,`weeek_num` 
-Airport - Information about airports
+- Airport - Information about airports
   `ident` ,`type` ,`iata_code` ,`name` ,`iso_country`,`municipality` ,`gps_code` 
-Arrival_port- Information about immigrants arrival port.
+- Arrival_port- Information about immigrants arrival port.
   `i94port` ,`i94addr` ,`arrival_portid` 
-US_demographic: Information about cities in each city with demographic information.
+- US_demographic: Information about cities in each city with demographic information.
   `city` ,`median_age`,`male_population` ,`female_population` ,`total_population` ,`number_of_veterans` ,`foreign_born` ,`average_household_size` ,`state_code` 
-US_demographic_race: Information about cities in each city with demographic information by race.
+- US_demographic_race: Information about cities in each city with demographic information by race.
   `city` ,`race` ,`count` 
   
 I will be using AWS services to build an ETL pipeline to_build a data lake hosted on S3 location "s3a://capstone-data-lake/"
