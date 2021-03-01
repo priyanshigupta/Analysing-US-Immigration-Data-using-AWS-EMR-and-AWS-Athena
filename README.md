@@ -20,9 +20,5 @@ https://en.wikipedia.org/wiki/IATA_airport_code)”
 http://ourairports.com/data/
 )
 
-#### Airports Data
-“Airport data includes IATA airport code.An IATA airport code, also known as an IATA locationidentifier, IATA station code or simply a location identifier, is a three-letter geocode designatingmany airports and metropolitan areas around the world, defined by the International Air TransportAssociation (IATA). IATA code is used in passenger reservation, ticketing and baggage-handlingsystems (
-https://en.wikipedia.org/wiki/IATA_airport_code)”
-. It was downloaded from a public domainsource (
-http://ourairports.com/data/
-)
+#### U.S. City Demographic Data
+This dataset contains information about the demographics of all US cities and census-designatedplaces with a population greater or equal to 65,000. This data comes from the US Census Bureau’s2015 American Community Survey. This product uses the Census Bureau Data API but is notendorsed or certified by the Census Bureau. The US City Demographics is the source of the STATEdimension in the data model and grouped by State.
