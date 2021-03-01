@@ -2,4 +2,4 @@
 
 ## Data Model
 
-<img src="Images/Untitled Diagram.jpg" alt="drawing" width="600" height="800"/>
+<img src="Images/Untitled Diagram.jpg" alt="drawing" width="700" height="800"/>
