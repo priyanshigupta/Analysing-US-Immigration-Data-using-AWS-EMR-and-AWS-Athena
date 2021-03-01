@@ -46,6 +46,8 @@ This choice med it easy for my to analyse and gather more information pertaining
 
 <img src="Images/Untitled Diagram.jpg" alt="drawing" width="700" height="800"/>
 
+### Data Dictionary
+
 Fact Table:
 
 - I94_Fact -Contains fact about immigration in US
@@ -54,19 +56,23 @@ Fact Table:
 Dimension Tables:
 
 - Flight - Flight information 
-  `airline` ,`fltno` ,`fltid` 
+    `airline` string, `fltno` string, `fltid` bigint  [primary_key: fltid]
 - Status - Information about  Arrival Flag  ,  Update Flag , Match flag
-  `entdepa` ,`entdepd`,`entdepu`,`matflag` ,`statusid` 
+    `entdepa` string, `entdepd` string, `entdepu` string, `matflag` string, `statusid` bigint  [primary_key: statusid]
 - Time - Details about specific date
-  `dateid` ,`date`,`month` ,`day` ,`weekday` ,`weeek_num` 
+    `dateid` int, `date` date, `month` int, `day` int, `weekday` string, `weeek_num` string [primary_key: dateid]
 - Airport - Information about airports
-  `ident` ,`type` ,`iata_code` ,`name` ,`iso_country`,`municipality` ,`gps_code` 
+   `ident` string, `type` string,`iata_code` string, `name` string, `iso_country` string,  `municipality` string, 
+   `gps_code` string, `coordinates` string [primary_key: iata_code]
 - Arrival_port- Information about immigrants arrival port.
-  `i94port` ,`i94addr` ,`arrival_portid` 
+    `i94port` string, `i94addr` string, `arrival_portid` bigint [primary_key: arrival_portid]
 - US_demographic: Information about cities in each city with demographic information.
-  `city` ,`median_age`,`male_population` ,`female_population` ,`total_population` ,`number_of_veterans` ,`foreign_born` ,`average_household_size` ,`state_code` 
+   `city` string,`median_age` double,`male_population` int,`female_population` int,`total_population` int, `number_of_veterans` int, 
+  `foreign_born` int, `average_household_size` double, `state_code` string [primary_key: state_code,city]
 - US_demographic_race: Information about cities in each city with demographic information by race.
-  `city` ,`race` ,`count` 
+    `city` string, `race` string,`count` int [primary_key: city]
+  
+  
   
 I will be using AWS services to build an ETL pipeline to_build a data lake hosted on S3 location "s3a://capstone-data-lake/"
 
@@ -79,6 +85,14 @@ Following are the steps included in the pipeline:
 3) Dump the dimensional model as partitioned parquet files in a Data Lake for effecient storage.
 4) Use AWS Glue to create a crawler to infer schema and get data to make it available for us to query.
 5) Use AWS Athena to analyse the data by quering from the cube.
+
+### Data Quality Checks
+
+Following checks were included:
+1) Implementing integrity constraints on the relational database (exp primary key)
+2) Ensured the data in every table doe not have duplicate records.
+3) Source/Count checks to ensure completeness
+4) Checked grain for every query.
 
 
 ## Process to Execute 
