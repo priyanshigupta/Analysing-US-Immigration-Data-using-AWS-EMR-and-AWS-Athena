@@ -193,7 +193,7 @@ group by 1,2
 ORDER BY count(distinct cicid) DESC
 ~~~~
 
-<img src="Images/arrivals_in_2016.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/arrivals_in_2016.PNG" alt="drawing" width="1000" height="600"/>
 
 
 - Following is the query to analyse the number of immigrants arriving via each airline for year 2016.
@@ -214,7 +214,7 @@ group by 1
 ORDER BY count(distinct cicid) DESC
 ~~~~
 
-<img src="Images/airline_2016.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/airline_2016.PNG" alt="drawing" width="1000" height="600"/>
 
 - Following is the query to analyse the number of immigrants arriving for each airport for year 2016.
 
@@ -231,6 +231,6 @@ group by 1
 order by cnt desc
 ~~~~
 
-<img src="Images/airport_cnt.PNG" alt="drawing" width="800" height="300"/>
+<img src="Images/airport_cnt.PNG" alt="drawing" width="1000" height="600"/>
 
 
