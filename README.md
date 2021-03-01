@@ -233,4 +233,21 @@ order by cnt desc
 
 <img src="Images/airport_cnt.PNG" alt="drawing" width="1000" height="600"/>
 
+## Complete Project 
+Description
+of how to approach the problem differently under the following scenarios:
+The data was increased by 100x.
 
+1. Use of Redshift (
+https://aws.amazon.com/redshift/
+). Itallows querying petabytes of structured and semi-structured data across the datawarehouse2. Use of Cassandra (
+http://cassandra.apache.org/
+). It offers robust supportfor clusters spanning multiple datacenters with asynchronous masterless replicationallowing low latency operations for all clients.
+The data populates a dashboard that must be updated on a daily basis by 7am every day.
+1.For small datasets, a cron job will be sufficient2. Use of Airflow(
+https://airflow.apache.org/docs/stable/macros.html
+)
+The database needed to be accessed by 100+ people.
+1. Use of Redshift with auto-scalingcapabilities and good read performance2. Use of Cassandra with pre-defined indexes tooptimize read queries3. Use of Elastic Map Reduce (
+https://aws.amazon.com/emr/
+). Itallows provisioning one, hundreds, or thousands of compute instances to process data atany scale.
